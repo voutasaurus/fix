@@ -82,3 +82,48 @@ function meandroidresolve {
 		stderrcat room/78FB64EA-7E2C-49B4-B59A-3CCEA37427D1/fix
 	fi
 }
+
+function shopdoor {
+	local answer=''
+	local action=''
+    declare -a command
+	if [ "$1" == '' ]; then
+		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/view
+	else
+		stderr 'The door is still locked.'
+	fi
+	while [ "$answer" == '' ]; do
+		stderr 'What do you do?'
+		stderr ''
+		if [ "$action" != '' ]; then
+			stderr "Option selected ($action) not available, pick again."
+		fi
+		action=$(prompt)
+		sentence=($action)
+		verb=${sentence[0]}
+	    case $verb in
+	        b | B | bash | Bash ) answer='bash';;
+	        f | F | fix | Fix ) answer='fix';;
+	    esac
+		nounphrase=$(echo $action | cut -d' ' -f2-)
+		case $nounphrase in
+			door | 'shop door' ) noun='door';;
+			*) answer='';;
+		esac
+	done
+	echo $answer
+}
+function shopdoorresolve {
+	local answer=$1
+	if [ "$answer" == 'bash' ]; then
+		soundbash &
+	    sleep 0.5
+		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/bash
+		echo 'notdone'
+	elif [ "$answer" == 'fix' ]; then
+		soundrepair &
+	    sleep 0.5
+		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/fix
+		echo 'done'
+	fi
+}

@@ -4,6 +4,11 @@ set -e
 . dependencies.sh
 . rooms.sh
 
+uptime=12
+if [ $1 == "-d" ]; then
+	uptime=0
+fi
+
 clear
 act=$(menu)
 if [ $act == 'q' ]; then
@@ -11,7 +16,7 @@ if [ $act == 'q' ]; then
 	exit
 fi
 clear
-establishingshot 12
+establishingshot $uptime
 
 clear
 act=$(smalldroid)
@@ -27,12 +32,15 @@ meandroidresolve $act
 stderr -n 'Press enter to continue'
 continueprompt
 
-#clear
-#act=$(shopdoor)
-#clear
-#shopdoorresolve $act
-#stderr -n 'Press enter to continue'
-#continueprompt
+isdone=''
+while [ "$isdone" != 'done' ]; do
+	clear
+	act=$(shopdoor $isdone)
+	clear
+	isdone=$(shopdoorresolve $act)
+	stderr -n 'Press enter to continue'
+	continueprompt
+done
 
 clear
 endnotdead
