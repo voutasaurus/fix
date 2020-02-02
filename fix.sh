@@ -13,13 +13,31 @@ fi
 
 clear
 
-act=$(home)
+establishingshot 0
 
 clear
 
-homeresolve $act
+act=$(smalldroid)
 
-#echo "you $act"
+clear
+
+smalldroidresolve $act
+
+stderr -n 'Press enter to continue'
+continueprompt
+
+clear
+
+act=$(meandroid)
+
+clear
+
+meandroidresolve $act
+
+stderr -n 'Press enter to continue'
+continueprompt
+
+clear
 
 endnotdead
 
