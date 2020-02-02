@@ -13,7 +13,7 @@ fi
 
 clear
 
-establishingshot 0
+establishingshot
 
 clear
 
