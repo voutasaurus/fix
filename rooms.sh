@@ -27,6 +27,7 @@ function smalldroid {
 	done
 	echo $answer
 }
+
 function smalldroidresolve {
 	local answer=$1
 	if [ "$answer" == 'bash' ]; then
@@ -126,5 +127,53 @@ function shopdoorresolve {
 		sounddooropen &
 		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/fix
 		echo 'done'
+	fi
+}
+
+function hallway {
+	local answer=''
+	local action=''
+    declare -a command
+	if [ "$1" == '' ]; then
+		stderrcat room/D36629DE-CE6F-4CF7-8198-6A42E75004D7/view
+	else
+		stderr 'The droid is getting closer!'
+	fi
+	while [ "$answer" == '' ]; do
+		stderr 'What do you do?'
+		stderr ''
+		if [ "$action" != '' ]; then
+			stderr "Option selected ($action) not available, pick again."
+		fi
+		action=$(prompt)
+		sentence=($action)
+		verb=${sentence[0]}
+	    case $verb in
+	        b | B | bash | Bash ) answer='bash';;
+	        f | F | fix | Fix ) answer='fix';;
+	        h | H | hack | Hack ) answer='hack';;
+	    esac
+		nounphrase=$(echo $action | cut -d' ' -f2-)
+		case $nounphrase in
+			droid | robot | 'creeping robot' | 'creeping droid' | 'creeping looking droid' | 'creeping looking robot' ) noun='droid';;
+			*) answer='';;
+		esac
+	done
+	echo $answer
+}
+function hallwayresolve {
+	local answer=$1
+	if [ "$answer" == 'bash' ]; then
+		soundbash &
+	    sleep 1
+		soundhurtdroid &
+		stderrcat room/D36629DE-CE6F-4CF7-8198-6A42E75004D7/bash
+		echo 'done'
+	elif [ "$answer" == 'fix' ]; then
+		stderrcat room/D36629DE-CE6F-4CF7-8198-6A42E75004D7/fix
+		echo 'notdone'
+	elif [ "$answer" == 'hack' ]; then
+		stderrcat room/D36629DE-CE6F-4CF7-8198-6A42E75004D7/hack
+		echo 'notdone'
 	fi
 }

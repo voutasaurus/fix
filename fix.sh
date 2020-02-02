@@ -42,6 +42,16 @@ while [ "$isdone" != 'done' ]; do
 	continueprompt
 done
 
+isdone=''
+while [ "$isdone" != 'done' ]; do
+	clear
+	act=$(hallway $isdone)
+	clear
+	isdone=$(hallwayresolve $act)
+	stderr -n 'Press enter to continue'
+	continueprompt
+done
+
 clear
 endnotdead
 backtoshell
