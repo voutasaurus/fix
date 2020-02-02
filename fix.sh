@@ -13,7 +13,7 @@ fi
 
 clear
 
-establishingshot
+establishingshot 12
 
 clear
 

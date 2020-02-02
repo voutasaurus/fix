@@ -166,10 +166,6 @@ function backtoshell {
 	stderr "GAME OVER"
 	stderr ""
 	stderr -n "returning to terminal shell in 3 seconds."
-	sleep 1
-	stderr -n "."
-	sleep 1
-	stderr -n "."
-	sleep 1
+    dramaticellipsis 3
 	stderr ""
 }
