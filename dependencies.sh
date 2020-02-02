@@ -39,18 +39,62 @@ function menu {
 function home {
 	local answer=''
 	local action=''
+    declare -a command
+	stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/view
 	while [ "$answer" == '' ]; do
-		stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/view
+		## TODO: add dynamic home
+		stderr 'What do you do?'
+		stderr ''
 		if [ "$action" != '' ]; then
 			stderr "Option selected ($action) not available, pick again."
 		fi
 		action=$(prompt)
-	    case $action in
+		sentence=($action)
+		verb=${sentence[0]}
+	    case $verb in
 	        b | B | bash | Bash ) answer='bash';;
 	        f | F | fix | Fix ) answer='fix';;
 	    esac
+		nounphrase=$(echo $action | cut -d' ' -f2-)
+		case $nounphrase in
+			droid | 'small droid' ) noun='droid';;
+			*) answer='';;
+		esac
 	done
+
 	echo $answer
+}
+
+function homeresolve {
+	local answer=$1
+	if [ "$answer" == 'bash' ]; then
+		soundbash &
+	    sleep 1
+		soundhurtdroid &
+		stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/bash
+	elif [ "$answer" == 'fix' ]; then
+		soundrepair &
+	    sleep 1
+		soundhappydroid &
+		stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/fix
+	fi
+	#stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/leave
+}
+
+function soundrepair {
+	afplay sound/robot-repair.wav
+}
+
+function soundhappydroid {
+	afplay sound/robot-happy.wav
+}
+
+function soundbash {
+	afplay sound/robot-hit.wav
+}
+
+function soundhurtdroid {
+	afplay sound/robot-hurt.wav
 }
 
 function endnotdead {
