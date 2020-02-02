@@ -58,7 +58,7 @@ function meandroid {
 		verb=${sentence[0]}
 	    case $verb in
 	        b | B | bash | Bash ) answer='bash';;
-	        f | F | fix | Fix ) answer='fix';;
+	        h | H | hack | Hack ) answer='hack';;
 	    esac
 		nounphrase=$(echo $action | cut -d' ' -f2-)
 		case $nounphrase in
@@ -75,11 +75,11 @@ function meandroidresolve {
 	    sleep 1
 		soundhurtdroid &
 		stderrcat room/78FB64EA-7E2C-49B4-B59A-3CCEA37427D1/bash
-	elif [ "$answer" == 'fix' ]; then
+	elif [ "$answer" == 'hack' ]; then
 		soundrepair &
 	    sleep 1
 		soundhappydroid &
-		stderrcat room/78FB64EA-7E2C-49B4-B59A-3CCEA37427D1/fix
+		stderrcat room/78FB64EA-7E2C-49B4-B59A-3CCEA37427D1/hack
 	fi
 }
 
@@ -116,13 +116,14 @@ function shopdoor {
 function shopdoorresolve {
 	local answer=$1
 	if [ "$answer" == 'bash' ]; then
-		soundbash &
+		sounddoorbash &
 	    sleep 0.5
 		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/bash
 		echo 'notdone'
 	elif [ "$answer" == 'fix' ]; then
 		soundrepair &
-	    sleep 0.5
+	    sleep 1
+		sounddooropen &
 		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/fix
 		echo 'done'
 	fi

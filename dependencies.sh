@@ -67,6 +67,14 @@ function soundbash {
 	afplay sound/robot-hit.wav
 }
 
+function sounddoorbash {
+	afplay sound/door-bash.wav
+}
+
+function sounddooropen {
+	afplay sound/door-open.wav
+}
+
 function soundhurtdroid {
 	afplay sound/robot-hurt.wav
 }
