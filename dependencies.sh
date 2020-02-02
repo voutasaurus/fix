@@ -76,7 +76,7 @@ function smalldroid {
 	    esac
 		nounphrase=$(echo $action | cut -d' ' -f2-)
 		case $nounphrase in
-			droid | 'small droid' ) noun='droid';;
+			droid | robot | 'small robot' | 'small droid' ) noun='droid';;
 			*) answer='';;
 		esac
 	done
@@ -118,7 +118,7 @@ function meandroid {
 	    esac
 		nounphrase=$(echo $action | cut -d' ' -f2-)
 		case $nounphrase in
-			droid | 'mean droid' ) noun='droid';;
+			droid | robot | 'mean robot' | 'mean droid' | 'mean looking droid' | 'mean looking robot' ) noun='droid';;
 			*) answer='';;
 		esac
 	done
