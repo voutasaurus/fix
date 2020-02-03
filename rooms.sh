@@ -4,14 +4,20 @@ set -e
 function smalldroid {
 	local answer=''
 	local action=''
+	local nounphrase=''
     declare -a command
 	stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/view
 	while [ "$answer" == '' ]; do
+		if [ "$action" != '' ]; then
+			if [[ "$nounphrase" == 'bash' || "$nounphrase" == 'fix' ]]; then
+				stderr "$action what?"
+			else
+			    stderr "Option selected ($action) not available, pick again."
+			fi
+			stderr ''
+		fi
 		stderr 'What do you do?'
 		stderr ''
-		if [ "$action" != '' ]; then
-			stderr "Option selected ($action) not available, pick again."
-		fi
 		action=$(prompt)
 		sentence=($action)
 		verb=${sentence[0]}
@@ -21,13 +27,12 @@ function smalldroid {
 	    esac
 		nounphrase=$(echo $action | cut -d' ' -f2-)
 		case $nounphrase in
-			droid | robot | 'small robot' | 'small droid' ) noun='droid';;
+			droid | robot | 'the droid' | 'the robot' | 'small robot' | 'small droid' ) noun='droid';;
 			*) answer='';;
 		esac
 	done
 	echo $answer
 }
-
 function smalldroidresolve {
 	local answer=$1
 	if [ "$answer" == 'bash' ]; then
@@ -37,7 +42,7 @@ function smalldroidresolve {
 		stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/bash
 	elif [ "$answer" == 'fix' ]; then
 		soundrepair &
-	    sleep 1
+	    sleep 1.5
 		soundhappydroid &
 		stderrcat room/80AC6D9C-A90F-4C19-82A8-E673A26099BF/fix
 	fi
@@ -49,11 +54,16 @@ function meandroid {
     declare -a command
     stderrcat room/78FB64EA-7E2C-49B4-B59A-3CCEA37427D1/view
 	while [ "$answer" == '' ]; do
+		if [ "$action" != '' ]; then
+			if [[ "$nounphrase" == 'hack' || "$nounphrase" == 'bash' ]]; then
+				stderr "$action what?"
+			else
+			    stderr "Option selected ($action) not available, pick again."
+			fi
+			stderr ''
+		fi
 		stderr 'What do you do?'
 		stderr ''
-		if [ "$action" != '' ]; then
-			stderr "Option selected ($action) not available, pick again."
-		fi
 		action=$(prompt)
 		sentence=($action)
 		verb=${sentence[0]}
@@ -63,7 +73,7 @@ function meandroid {
 	    esac
 		nounphrase=$(echo $action | cut -d' ' -f2-)
 		case $nounphrase in
-			droid | robot | 'mean robot' | 'mean droid' | 'mean looking droid' | 'mean looking robot' ) noun='droid';;
+			droid | robot | 'the robot' | 'the droid' | 'mean robot' | 'mean droid' | 'mean looking droid' | 'mean looking robot' ) noun='droid';;
 			*) answer='';;
 		esac
 	done
@@ -91,14 +101,19 @@ function shopdoor {
 	if [ "$1" == '' ]; then
 		stderrcat room/327EB2B7-E724-4025-8524-17659457CAC9/view
 	else
-		stderr 'The door is still locked.'
+		stderr 'The door appears to be broken.'
 	fi
 	while [ "$answer" == '' ]; do
+		if [ "$action" != '' ]; then
+			if [[ "$nounphrase" == 'fix' || "$nounphrase" == 'bash' ]]; then
+				stderr "$action what?"
+			else
+			    stderr "Option selected ($action) not available, pick again."
+			fi
+			stderr ''
+		fi
 		stderr 'What do you do?'
 		stderr ''
-		if [ "$action" != '' ]; then
-			stderr "Option selected ($action) not available, pick again."
-		fi
 		action=$(prompt)
 		sentence=($action)
 		verb=${sentence[0]}
@@ -140,11 +155,16 @@ function hallway {
 		stderr 'The droid is getting closer!'
 	fi
 	while [ "$answer" == '' ]; do
+		if [ "$action" != '' ]; then
+			if [[ "$nounphrase" == 'fix' || "$nounphrase" == 'hack' || "$nounphrase" == 'bash' ]]; then
+				stderr "$action what?"
+			else
+			    stderr "Option selected ($action) not available, pick again."
+			fi
+			stderr ''
+		fi
 		stderr 'What do you do?'
 		stderr ''
-		if [ "$action" != '' ]; then
-			stderr "Option selected ($action) not available, pick again."
-		fi
 		action=$(prompt)
 		sentence=($action)
 		verb=${sentence[0]}
@@ -155,7 +175,7 @@ function hallway {
 	    esac
 		nounphrase=$(echo $action | cut -d' ' -f2-)
 		case $nounphrase in
-			droid | robot | 'creeping robot' | 'creeping droid' | 'creeping looking droid' | 'creeping looking robot' ) noun='droid';;
+			droid | 'the droid' | 'the robot' | robot | 'creeping robot' | 'creeping droid' | 'creeping looking droid' | 'creeping looking robot' ) noun='droid';;
 			*) answer='';;
 		esac
 	done
