@@ -13,6 +13,8 @@ function smalldroid {
 				stderr "$action what?"
 			else
 			    stderr "Option selected ($action) not available, pick again."
+				stderr ''
+				stderr 'The droid appears to be broken.'
 			fi
 			stderr ''
 		fi
