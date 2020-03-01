@@ -56,32 +56,37 @@ function establishingshot {
 }
 
 # uncomment this on Android termux
-#function afplay {
-#	play-audio "$@"
-#}
+function soundfx {
+	if [ $(ps -ef|grep -c com.termux ) -gt 0 ]; then
+		play-audio "$@"
+	else
+		# default to mac
+		afplay "$@"
+	fi
+}
 
 function soundrepair {
-	afplay sound/robot-repair.wav
+	soundfx sound/robot-repair.wav
 }
 
 function soundhappydroid {
-	afplay sound/robot-happy.wav
+	soundfx sound/robot-happy.wav
 }
 
 function soundbash {
-	afplay sound/robot-hit.wav
+	soundfx sound/robot-hit.wav
 }
 
 function sounddoorbash {
-	afplay sound/door-bash.wav
+	soundfx sound/door-bash.wav
 }
 
 function sounddooropen {
-	afplay sound/door-open.wav
+	soundfx sound/door-open.wav
 }
 
 function soundhurtdroid {
-	afplay sound/robot-hurt.wav
+	soundfx sound/robot-hurt.wav
 }
 
 function endnotdead {
