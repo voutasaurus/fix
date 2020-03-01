@@ -55,6 +55,11 @@ function establishingshot {
 	stderr ""
 }
 
+# uncomment this on Android termux
+#function afplay {
+#	play-audio "$@"
+#}
+
 function soundrepair {
 	afplay sound/robot-repair.wav
 }
