@@ -57,7 +57,7 @@ function establishingshot {
 
 # uncomment this on Android termux
 function soundfx {
-	if [ $(ps -ef|grep -c com.termux ) -gt 0 ]; then
+	if [ $(ps -ef|grep -c com.termux ) -gt 1 ]; then
 		play-audio "$@"
 	else
 		# default to mac
